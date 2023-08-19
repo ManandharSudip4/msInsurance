@@ -32,9 +32,7 @@ public class SecurityConfiguration {
       .securityMatcher("/**")
       .authorizeHttpRequests(auth ->
         auth
-          .requestMatchers("/")
-          .permitAll()
-          .requestMatchers("/home")
+          .requestMatchers("/", "/home", "/auth/login", "auth/register")
           .permitAll()
           .requestMatchers("/api/v1/**")
           .hasAnyRole("ADMIN")
