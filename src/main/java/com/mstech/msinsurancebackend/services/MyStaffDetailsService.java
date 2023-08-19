@@ -20,6 +20,7 @@ public class MyStaffDetailsService implements UserDetailsService {
   public UserDetails loadUserByUsername(String username)
     throws UsernameNotFoundException {
     Optional<Staff> staff = staffRepository.findByUsername(username);
+    System.out.println(staff.map(MyStaffDetails::new).get().getAuthorities());
     staff.orElseThrow(() ->
       new UsernameNotFoundException("Not found: " + username)
     );
