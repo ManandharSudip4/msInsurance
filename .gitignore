@@ -34,5 +34,5 @@ build/
 
 
 ### User Defined ###
-/src/main/resources/application.properties
+/src/main/resources/application.yaml
 FrontEnd.md
