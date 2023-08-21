@@ -1,9 +1,13 @@
 package com.mstech.msinsurancebackend.controllers;
 
+import com.mstech.msinsurancebackend.entities.UserEntity;
 import com.mstech.msinsurancebackend.models.LoginRequest;
 import com.mstech.msinsurancebackend.models.LoginResponse;
 import com.mstech.msinsurancebackend.services.AuthService;
+import com.mstech.msinsurancebackend.services.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -13,7 +17,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class AuthController {
 
-  public final AuthService authService;
+  private final AuthService authService;
+  private final UserService userService;
 
   @PostMapping("/auth/login")
   public LoginResponse login(@RequestBody @Validated LoginRequest request) {
@@ -21,7 +26,10 @@ public class AuthController {
   }
 
   @PostMapping("auth/register")
-  public void register(@RequestBody @Validated LoginRequest request) {
-    System.out.println("Need to configure this.");
+  public ResponseEntity<HttpStatus> register(
+    @RequestBody @Validated UserEntity request
+  ) {
+    System.out.println("Configuring User Registration");
+    return userService.registerNewStaff(request);
   }
 }

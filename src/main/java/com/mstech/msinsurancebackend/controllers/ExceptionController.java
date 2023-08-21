@@ -1,5 +1,6 @@
 package com.mstech.msinsurancebackend.controllers;
 
+import com.mstech.msinsurancebackend.exception.AuthenticationFailedError;
 import com.mstech.msinsurancebackend.exception.ResourceNotFoundException;
 import com.mstech.msinsurancebackend.models.ErrorMessage;
 import java.util.Date;
@@ -19,6 +20,21 @@ public class ExceptionController {
   ) {
     ErrorMessage message = new ErrorMessage(
       HttpStatus.NOT_FOUND.value(),
+      new Date(),
+      ex.getMessage(),
+      request.getDescription(false)
+    );
+
+    return new ResponseEntity<ErrorMessage>(message, HttpStatus.NOT_FOUND);
+  }
+
+  @ExceptionHandler(AuthenticationFailedError.class)
+  public ResponseEntity<ErrorMessage> authenticationFailedError(
+    AuthenticationFailedError ex,
+    WebRequest request
+  ) {
+    ErrorMessage message = new ErrorMessage(
+      HttpStatus.FORBIDDEN.value(),
       new Date(),
       ex.getMessage(),
       request.getDescription(false)
