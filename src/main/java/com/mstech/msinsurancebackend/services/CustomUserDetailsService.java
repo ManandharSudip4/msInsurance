@@ -1,9 +1,7 @@
 package com.mstech.msinsurancebackend.services;
 
-import com.mstech.msinsurancebackend.repositories.StaffRepository;
+import com.mstech.msinsurancebackend.repositories.UserRepository;
 import com.mstech.msinsurancebackend.security.UserPrincipal;
-
-
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -13,20 +11,15 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 @Service
-public class MyStaffDetailsService implements UserDetailsService {
+public class CustomUserDetailsService implements UserDetailsService {
 
   @Autowired
-  StaffRepository staffRepository;
+  UserRepository staffRepository;
 
   @Override
   public UserDetails loadUserByUsername(String username)
     throws UsernameNotFoundException {
     var staff = staffRepository.findByUsername(username).orElseThrow();
-    // System.out.println(staff.map(MyStaffDetails::new).get().getAuthorities());
-    // staff.orElseThrow(() ->
-    //   new UsernameNotFoundException("Not found: " + username)
-    // );
-    // return staff.map(MyStaffDetails::new).get();
     return UserPrincipal
       .builder()
       .userId(staff.getId())

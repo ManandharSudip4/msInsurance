@@ -1,7 +1,7 @@
 package com.mstech.msinsurancebackend.security;
 
 import com.mstech.msinsurancebackend.security.jwt.JwtAuthenticationFilter;
-import com.mstech.msinsurancebackend.services.MyStaffDetailsService;
+import com.mstech.msinsurancebackend.services.CustomUserDetailsService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -23,7 +23,7 @@ public class SecurityConfiguration {
 
   private final JwtAuthenticationFilter jwtAuthenticationFilter;
   private final UnauthorizedHandler unauthorizedHandler;
-  private final MyStaffDetailsService myStaffDetailsService;
+  private final CustomUserDetailsService myStaffDetailsService;
 
   @Bean
   public SecurityFilterChain securityFilterChain(HttpSecurity http)

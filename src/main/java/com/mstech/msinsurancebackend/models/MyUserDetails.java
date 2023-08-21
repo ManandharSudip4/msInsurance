@@ -8,14 +8,16 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-public class MyStaffDetails implements UserDetails {
+import com.mstech.msinsurancebackend.entities.UserEntity;
+
+public class MyUserDetails implements UserDetails {
 
   private String username;
   private String password;
   private boolean active;
   private List<GrantedAuthority> authorities;
 
-  public MyStaffDetails(Staff staff) {
+  public MyUserDetails(UserEntity staff) {
     this.username = staff.getUsername();
     this.password = staff.getPassword();
     this.active = staff.isActive();
