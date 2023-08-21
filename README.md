@@ -6,3 +6,10 @@
     endpoint
     - Configured database 
     - Default Spring security in used
+
+## Day 2:
+    - Security Configuration almost done.
+    - Authentication and Authorization using OAuth0 JWT.
+    - Used userrepository to get user from database to match for authentication.
+    - User JWT for authorization.
+    

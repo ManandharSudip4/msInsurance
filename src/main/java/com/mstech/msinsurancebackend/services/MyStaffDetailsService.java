@@ -1,10 +1,12 @@
 package com.mstech.msinsurancebackend.services;
 
-import com.mstech.msinsurancebackend.models.MyStaffDetails;
-import com.mstech.msinsurancebackend.models.Staff;
 import com.mstech.msinsurancebackend.repositories.StaffRepository;
-import java.util.Optional;
+import com.mstech.msinsurancebackend.security.UserPrincipal;
+
+
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -19,11 +21,18 @@ public class MyStaffDetailsService implements UserDetailsService {
   @Override
   public UserDetails loadUserByUsername(String username)
     throws UsernameNotFoundException {
-    Optional<Staff> staff = staffRepository.findByUsername(username);
-    System.out.println(staff.map(MyStaffDetails::new).get().getAuthorities());
-    staff.orElseThrow(() ->
-      new UsernameNotFoundException("Not found: " + username)
-    );
-    return staff.map(MyStaffDetails::new).get();
+    var staff = staffRepository.findByUsername(username).orElseThrow();
+    // System.out.println(staff.map(MyStaffDetails::new).get().getAuthorities());
+    // staff.orElseThrow(() ->
+    //   new UsernameNotFoundException("Not found: " + username)
+    // );
+    // return staff.map(MyStaffDetails::new).get();
+    return UserPrincipal
+      .builder()
+      .userId(staff.getId())
+      .email(staff.getUsername())
+      .password(staff.getPassword())
+      .authorities(List.of(new SimpleGrantedAuthority(staff.getRoles())))
+      .build();
   }
 }
