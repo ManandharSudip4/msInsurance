@@ -47,7 +47,9 @@ public class SecurityConfiguration {
         auth
           .requestMatchers("/", "/home", "/auth/login", "auth/register")
           .permitAll()
-          .requestMatchers("/api/v1/**")
+          .requestMatchers("/staff")
+          .hasAnyRole("ADMIN", "STAFF")
+          .requestMatchers("/api/v1/**", "/admin")
           .hasRole("ADMIN")
           .anyRequest()
           .authenticated()
