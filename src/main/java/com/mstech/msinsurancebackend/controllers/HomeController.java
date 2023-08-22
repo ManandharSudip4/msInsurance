@@ -1,7 +1,6 @@
 package com.mstech.msinsurancebackend.controllers;
 
 import com.mstech.msinsurancebackend.security.UserPrincipal;
-import com.mstech.msinsurancebackend.security.jwt.JwtProperties;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.GetMapping;
